@@ -10,6 +10,13 @@ interface ServerCardProps {
 
 export const ServerCard: React.FC<ServerCardProps> = ({ server, onSelect }) => {
   const playerPercentage = (server.onlinePlayers / server.maxPlayers) * 100;
+  
+  // Ensure tags is always an array
+  const tags = Array.isArray(server.tags) 
+    ? server.tags 
+    : typeof server.tags === 'string' 
+      ? server.tags.split(',').map(t => t.trim()).filter(Boolean)
+      : [];
 
   return (
     <div 
@@ -42,7 +49,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({ server, onSelect }) => {
           </div>
         </div>
         <div className="mt-3 flex flex-wrap gap-2">
-            {server.tags.slice(0, 4).map(tag => (
+            {tags.slice(0, 4).map(tag => (
                 <span key={tag} className="text-xs font-semibold px-2.5 py-1 bg-slate-700 text-sky-300 rounded-full">
                     {tag}
                 </span>

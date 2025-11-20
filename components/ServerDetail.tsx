@@ -40,6 +40,13 @@ export const ServerDetail: React.FC<ServerDetailProps> = ({ server, onBack, curr
   const [isSummarizing, setIsSummarizing] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<Tab>('details');
 
+  // Ensure tags is always an array
+  const tags = Array.isArray(server.tags) 
+    ? server.tags 
+    : typeof server.tags === 'string' 
+      ? server.tags.split(',').map(t => t.trim()).filter(Boolean)
+      : [];
+
   useEffect(() => {
     let mounted = true;
     const load = async () => {
@@ -114,7 +121,7 @@ export const ServerDetail: React.FC<ServerDetailProps> = ({ server, onBack, curr
                      <h3 className="text-2xl font-bold text-sky-400">서버 상세정보</h3>
                      <p className="text-slate-300">{server.description}</p>
                      <div className="flex flex-wrap gap-2">
-                        {server.tags.map(tag => (
+                        {tags.map(tag => (
                             <span key={tag} className="text-sm font-semibold px-3 py-1 bg-slate-700 text-sky-300 rounded-full">
                                 {tag}
                             </span>
