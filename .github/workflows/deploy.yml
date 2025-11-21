@@ -32,7 +32,7 @@ jobs:
                 - name: VITE_GEMINI_API_KEY
                   value: PLACEHOLDER_API_KEY
                 - name: VITE_MAIN_API_URL
-                  value: minerank-backend:5000
+                  value: https://port-0-minerank-backend-mhbi0tawac3d1b50.sel3.cloudtype.app
               rewrites: []
             context:
               git:
